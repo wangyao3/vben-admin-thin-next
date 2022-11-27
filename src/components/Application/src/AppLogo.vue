@@ -6,19 +6,34 @@
   <div class="anticon" :class="getAppLogoClass" @click="goHome">
     <img src="../../../assets/images/logo.png" />
     <div class="ml-2 truncate md:opacity-100" :class="getTitleClass" v-show="showTitle">
-      {{ title }}
+      <span class="titleSpan"> {{ title }}</span>
     </div>
+    <Drawer
+      :autofocus="false"
+      :style="{ display: `flex`, top: `48px`, right: 0, left: 0 }"
+      :drawerStyle="{ margin: 0, padding: 0, overflow: `hidden` }"
+      :bodyStyle="{ margin: 0, padding: 0 }"
+      :visible="visible"
+      :closable="false"
+      :keyboard="true"
+      :placement="placement"
+      :width="`70%`"
+      @close="drawerClose"
+    >
+      <BasicZtMenu @drawerClose="drawerClose" :visible="visible" />
+    </Drawer>
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, unref } from 'vue';
+  import { computed, unref, ref } from 'vue';
   import { useGlobSetting } from '/@/hooks/setting';
-  import { useGo } from '/@/hooks/web/usePage';
+  // import { useGo } from '/@/hooks/web/usePage';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { PageEnum } from '/@/enums/pageEnum';
-  import { useUserStore } from '/@/store/modules/user';
+  // import { PageEnum } from '/@/enums/pageEnum';
 
+  import { BasicZtMenu } from '/@/components/MenuZt';
+  import { Drawer } from 'ant-design-vue';
   const props = defineProps({
     /**
      * The theme of the current parent component
@@ -36,9 +51,9 @@
 
   const { prefixCls } = useDesign('app-logo');
   const { getCollapsedShowTitle } = useMenuSetting();
-  const userStore = useUserStore();
+  // const userStore = useUserStore();
   const { title } = useGlobSetting();
-  const go = useGo();
+  // const go = useGo();
 
   const getAppLogoClass = computed(() => [
     prefixCls,
@@ -53,8 +68,14 @@
     },
   ]);
 
+  const visible = ref(false);
+  const placement = ref('left');
   function goHome() {
-    go(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
+    // go(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
+    visible.value = !visible.value;
+  }
+  function drawerClose() {
+    visible.value = !visible.value;
   }
 </script>
 <style lang="less" scoped>
@@ -89,5 +110,8 @@
       transition: all 0.5s;
       line-height: normal;
     }
+  }
+  .titleSpan {
+    color: #0960bd;
   }
 </style>

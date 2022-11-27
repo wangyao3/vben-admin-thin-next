@@ -16,7 +16,7 @@
         :theme="getHeaderTheme"
         :sider="false"
       />
-      <LayoutBreadcrumb v-if="getShowContent && getShowBread" :theme="getHeaderTheme" />
+      <LayoutBreadcrumb v-if="false" :theme="getHeaderTheme" />
     </div>
     <!-- left end -->
 
@@ -50,7 +50,7 @@
 
       <UserDropDown :theme="getHeaderTheme" />
 
-      <SettingDrawer v-if="getShowSetting" :class="`${prefixCls}-action__item`" />
+      <SettingDrawer v-if="false" :class="`${prefixCls}-action__item`" />
     </div>
   </Header>
 </template>

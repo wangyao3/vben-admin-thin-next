@@ -25,7 +25,7 @@
         setTimeout(() => {
           loading.value = false;
           // Animation execution time
-        }, 1200);
+        }, 0);
       }
       return { prefixCls, handleRedo, loading };
     },
